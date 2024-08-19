@@ -13,3 +13,23 @@ consumer.subscriptions.create("MessageChannel", {
     // Called when there's incoming data on the websocket for this channel
   }
 });
+
+// This isn't apart of the creation so it goes outside
+
+document.addEventListener("turbo:load", () => {
+  let form = document.querySelector('#message-form')
+  if (form) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault()
+      let messageInput = document.querySelector('#message-input').value
+      if (messageInput == '') return;
+      const message = {
+        body: messageInput // We store the message...
+      }
+
+      messageChannel.send({message: message}) // ...and then we send it off
+    })
+  }
+})
+
+
