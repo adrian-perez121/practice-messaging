@@ -1,6 +1,6 @@
 import consumer from "channels/consumer"
 
-consumer.subscriptions.create("MessageChannel", {
+const messageChannel = consumer.subscriptions.create("MessageChannel", {
   connected() {
     // Called when the subscription is ready for use on the server
   },
@@ -11,6 +11,19 @@ consumer.subscriptions.create("MessageChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
+    const messageDisplay = document.querySelector('#message-display')
+    messageDisplay.insertAdjacentHTML('beforeend', this.template(data))
+  },
+
+  template(data) {
+    return `<article class="message">
+              <div class="message-header">
+                <p>${data.user.email}</p>
+              </div>
+              <div class="message-body">
+                <p>${data.message.body}</p>
+              </div>
+            </article>`
   }
 });
 
