@@ -9,6 +9,8 @@ Rails.application.routes.draw do
 
   root 'hangouts#index'
 
+  resources :messages, only: [:create]
+
   # Defines the root path route ("/")
   # root "posts#index"
 end
