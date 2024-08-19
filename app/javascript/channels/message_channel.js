@@ -11,8 +11,9 @@ const messageChannel = consumer.subscriptions.create("MessageChannel", {
 
   received(data) {
     // Called when there's incoming data on the websocket for this channel
-    console.log(data)
     const messageDisplay = document.querySelector('#message-display')
+    const messageInput = document.querySelector('#message-input')
+    messageInput.value = '' // Resetting the message in the input box
     messageDisplay.insertAdjacentHTML('beforeend', this.template(data))
   },
 
